@@ -44,7 +44,6 @@ jobs:
       shell: bash
       run: |
         ./mvnw clean install -Dmaven.test.skip=true
-        exit 1
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
