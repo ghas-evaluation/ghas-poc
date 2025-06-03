@@ -39,6 +39,7 @@ jobs:
       with:
         languages: ${{ matrix.language }}
         build-mode: ${{ matrix.build-mode }}
+        dependency-caching: true
 
     - if: matrix.build-mode == 'manual'
       shell: bash
