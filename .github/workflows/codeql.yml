@@ -51,16 +51,5 @@ jobs:
       with:
         category: "/language:${{matrix.language}}"
 
-    - name: Create SBOM
-      uses: anchore/sbom-action@v0
-      with:
-        path: "."
-        format: spdx-json
-        output-file: "${{ github.event.repository.name }}-${{ github.job }}-${{ github.run_id }}.spdx.json"
-
-    - name: Scan SBOM
-      uses: anchore/scan-action@v6
-      with:
-        sbom: "${{ github.event.repository.name }}-${{ github.job }}-${{ github.run_id }}.spdx.json"
 
         
