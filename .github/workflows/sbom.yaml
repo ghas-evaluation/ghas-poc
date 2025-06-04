@@ -1,0 +1,36 @@
+name: 'SBOM GENERATION'
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write  # Required to upload artifacts
+  pull-requests: write
+  actions: read
+
+jobs:
+  sbom-genration:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Create SBOM
+      id: create-sbom
+      uses: anchore/sbom-action@v0
+      with:
+        path: "."
+        format: spdx-json
+        output-file: "${{ github.event.repository.name }}.spdx.json"
+        artifact-name: "${{ github.event.repository.name }}-${{ github.job }}-${{ github.run_id }}.spdx.json"
+        upload-artifact: true
+
+    - name: Run Grype Scan on SBOM
+      uses: anchore/scan-action@v6
+      with:
+        sbom: "${{ github.event.repository.name }}.spdx.json"
+        fail-build: false
