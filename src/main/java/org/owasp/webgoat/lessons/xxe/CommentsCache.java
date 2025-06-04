@@ -73,6 +73,7 @@ public class CommentsCache {
     // Enforce secure XML parsing configurations.
     xif.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, ""); // Compliant
     xif.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, ""); // Compliant
+    xif.setProperty("http://apache.org/xml/features/disallow-doctype-decl", true); // Compliant
 
     var xsr = xif.createXMLStreamReader(new StringReader(xml));
 
