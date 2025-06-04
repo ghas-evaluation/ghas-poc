@@ -56,11 +56,11 @@ jobs:
       with:
         path: "."
         format: spdx-json
-        output-file: "${{ github.event.repository.name }}.spdx.json"
+        output-file: "${{ github.event.repository.name }}-${{ github.job }}-${{ github.run_id }}.spdx.json"
 
     - name: Scan SBOM
       uses: anchore/scan-action@v6
       with:
-        sbom: "${{ github.event.repository.name }}.spdx.json"
+        sbom: "${{ github.event.repository.name }}-${{ github.job }}-${{ github.run_id }}.spdx.json"
 
         
